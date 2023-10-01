@@ -195,7 +195,14 @@ We can output this plan or changeset to a file if you want, but it's not require
 
 This will run the plan which will deploy/modify/destroy infrasturcture as needed. Apply should prompt yes or no.
 
-If we want to automatically approve, we can provide the auto approve flag eg. `terraform apply --auto-approve`
+If we want to automatically approve, we can provide the auto approve flag: `terraform apply --auto-approve`
+
+#### Terraform Destroy
+
+`teraform destroy` will destroy resources.
+
+You can also use the auto approve flag to skip the approve prompt:
+`terraform apply --auto-approve`
 
 ### Terraform Lock Files
 
@@ -218,3 +225,16 @@ If you lose this file, you lose knowning the state of your infrastructure.
 ### Terraform Directory
 
 `.terraform` directory contains binaries of terraform providers.
+
+## AWS S3 Buckets
+#### Bucket naming restrictions
+When writing the terraform code to create an AWS S3 bucket with a random name, we realized we couldn't use uppercase letters in the name. So, we had to configure the random string resource accordingly:
+```
+resource "random_string" "bucket_name" {
+  length    = 16
+  special   = false
+  upper     = false
+  # lower=true by default
+}
+```
+I did not increase my length to 32 since it will always use 32 characters in that case.
