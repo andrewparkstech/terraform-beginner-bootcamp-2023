@@ -225,3 +225,16 @@ If you lose this file, you lose knowning the state of your infrastructure.
 ### Terraform Directory
 
 `.terraform` directory contains binaries of terraform providers.
+
+## AWS S3 Buckets
+#### Bucket naming restrictions
+When writing the terraform code to create an AWS S3 bucket with a random name, we realized we couldn't use uppercase letters in the name. So, we had to configure the random string resource accordingly:
+```
+resource "random_string" "bucket_name" {
+  length    = 16
+  special   = false
+  upper     = false
+  # lower=true by default
+}
+```
+I did not increase my length to 32 since it will always use 32 characters in that case.
