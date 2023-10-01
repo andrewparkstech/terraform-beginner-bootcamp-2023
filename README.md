@@ -195,7 +195,14 @@ We can output this plan or changeset to a file if you want, but it's not require
 
 This will run the plan which will deploy/modify/destroy infrasturcture as needed. Apply should prompt yes or no.
 
-If we want to automatically approve, we can provide the auto approve flag eg. `terraform apply --auto-approve`
+If we want to automatically approve, we can provide the auto approve flag: `terraform apply --auto-approve`
+
+#### Terraform Destroy
+
+`teraform destroy` will destroy resources.
+
+You can also use the auto approve flag to skip the approve prompt:
+`terraform apply --auto-approve`
 
 ### Terraform Lock Files
 
