@@ -232,6 +232,8 @@ I wanted to follow the standard we have been using which is to use environment v
 
 Create an env var named `TF_TOKEN_app_terraform_io` using `export` and commit it to GitPod using `gp env`. Now run `terraform init` and it should prompt you to migrate your state file.
 
+You will also need to set environment variabels within Terraform Cloud for the AWS credentials. `https://app.terraform.io/app/[YourOrganization]/workspaces/terra-house-1/variables`
+
 ## AWS S3 Buckets
 #### Bucket naming restrictions
 When writing the terraform code to create an AWS S3 bucket with a random name, we realized we couldn't use uppercase letters in the name. So, we had to configure the random string resource accordingly:
