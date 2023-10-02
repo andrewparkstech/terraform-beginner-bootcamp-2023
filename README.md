@@ -226,6 +226,12 @@ If you lose this file, you lose knowning the state of your infrastructure.
 
 `.terraform` directory contains binaries of terraform providers.
 
+### Terraform Cloud
+I wanted to follow the standard we have been using which is to use environment variable secrets, so I looked up how to use env vars for terraform cloud.
+[Terraform Environment Variable Credentials](https://developer.hashicorp.com/terraform/cli/config/config-file#environment-variable-credentials)
+
+Create an env var named `TF_TOKEN_app_terraform_io` using `export` and commit it to GitPod using `gp env`. Now run `terraform init` and it should prompt you to migrate your state file.
+
 ## AWS S3 Buckets
 #### Bucket naming restrictions
 When writing the terraform code to create an AWS S3 bucket with a random name, we realized we couldn't use uppercase letters in the name. So, we had to configure the random string resource accordingly:
