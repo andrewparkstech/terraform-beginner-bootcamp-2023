@@ -15,7 +15,7 @@ PROJECT_ROOT
 └── README.md               # required for root modules
 ```
 
-[Standard Module Structure](https://developer.hashicorp.com/terraform/language/modules/develop/structure)
+Ref: [Standard Module Structure](https://developer.hashicorp.com/terraform/language/modules/develop/structure)
 
 ## Terraform and Input Variables
 
@@ -29,7 +29,7 @@ We can set Terraform Cloud variables to be sensitive so they are not shown visib
 
 ### Loading Terraform Input Variables
 
-[Terraform Input Variables](https://developer.hashicorp.com/terraform/language/values/variables)
+Ref: [Terraform Input Variables](https://developer.hashicorp.com/terraform/language/values/variables)
 
 ### var flag
 We can use the `-var` flag to set an input variable or override a variable in the tfvars file eg. `terraform -var user_ud="my-user_id"`
@@ -71,8 +71,9 @@ You can use terraform import but it doesn't work for all cloud resources. Check 
 
 `terraform import aws_s3_bucket.bucket bucket-name`
 
-[Terraform Import](https://developer.hashicorp.com/terraform/cli/import)
-[AWS S3 Bucket Import](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket#import)
+Ref: [Terraform Import](https://developer.hashicorp.com/terraform/cli/import)
+
+Ref: [AWS S3 Bucket Import](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket#import)
 
 ### Fix Manual Configuration
 
@@ -119,4 +120,43 @@ module "terrahouse_aws" {
 ```
 
 
-[Modules Sources](https://developer.hashicorp.com/terraform/language/modules/sources)
+Ref: [Modules Sources](https://developer.hashicorp.com/terraform/language/modules/sources)
+
+## Considerations when using ChatGPT to write Terraform code
+
+Large Language Models (LLMs) such as ChatGPT may not be trained in the latest version of documentation or modules. It may produce older examples that could be deprecated, often affecting providers.
+
+## Working with Files in Terraform
+
+### Fileexists function
+
+This is a built in terraform function to check the existance of a file.
+
+```tf
+condition = fileexists(var.error_html_filepath)
+```
+
+Ref: [fileexists function](https://developer.hashicorp.com/terraform/language/functions/fileexists)
+
+### Filemd5 function
+
+The `filemd5` function hashes the contents of a given file to provide a unique value.
+
+Ref: [filemd5 function](https://developer.hashicorp.com/terraform/language/functions/filemd5)
+
+### Path Variable
+
+In terraform there is a special variable called `path` that allows us to reference local paths:
+- path.module = get the path for the current module
+- path.root = get the path for the root module
+
+```tf
+resource "aws_s3_object" "index_html" {
+  bucket = aws_s3_bucket.website_bucket.bucket
+  key    = "index.html"
+  source = "${path.root}/public/index.html"
+}
+```
+
+Ref: [Special Path Variable](https://developer.hashicorp.com/terraform/language/expressions/references#filesystem-and-workspace-info)
+
