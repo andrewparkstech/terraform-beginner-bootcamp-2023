@@ -194,7 +194,7 @@ locals {
   s3_origin_id = "MyS3Origin"
 }
 ```
-[Local Values](https://developer.hashicorp.com/terraform/language/values/locals)
+Ref: [Local Values](https://developer.hashicorp.com/terraform/language/values/locals)
 
 
 ## Terraform Data Sources
@@ -209,7 +209,7 @@ output "account_id" {
   value = data.aws_caller_identity.current.account_id
 }
 ```
-[Data Sources](https://developer.hashicorp.com/terraform/language/data-sources)
+Ref: [Data Sources](https://developer.hashicorp.com/terraform/language/data-sources)
 
 
 
@@ -222,15 +222,63 @@ We can use `jsonencode` to create the json policy inline in the HCL (Teraform Co
 {"hello":"world"}
 ```
 
-[jsonencode](https://developer.hashicorp.com/terraform/language/functions/jsonencode)
+Ref: [jsonencode](https://developer.hashicorp.com/terraform/language/functions/jsonencode)
 
 
 ## Changing the Lifecycle of Resources
 
-[Meta Arguments Lifcycle](https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle)
+Ref: [Meta Arguments Lifcycle](https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle)
 
 ## Terraform Data
 
 Plain data values such as Local Values and Input Variables don't have any side-effects to plan against and so they aren't valid in replace_triggered_by. You can use terraform_data's behavior of planning an action each time input changes to indirectly use a plain value to trigger replacement.
 
 https://developer.hashicorp.com/terraform/language/resources/terraform-data
+
+## Provisioners
+
+Provisioners allow you to execute commands on compute instances eg. a AWS CLI command.
+
+They are not recommended for use by Hashicorp because Configuration Management tools such as Ansible are a better fit, but the functionality exists.
+
+Ref: [Provisioners](https://developer.hashicorp.com/terraform/language/resources/provisioners/syntax)
+
+### Local-exec
+
+This will execute a command on the machine running terraform
+
+```tf
+resource "aws_instance" "web" {
+  # ...
+  provisioner "local-exec" {
+    command = "echo The server's IP address is ${self.private_ip}"
+  }
+}
+```
+
+Ref: [local-exec](https://developer.hashicorp.com/terraform/language/resources/provisioners/local-exec)
+
+### Remote-exec
+
+This will execute commands on a machine which you target. You will need to provide credentials such as ssh to get into the machine.
+
+```tf
+resource "aws_instance" "web" {
+  # ...
+  # Establishes connection to be used by all
+  # generic remote provisioners (i.e. file/remote-exec)
+  connection {
+    type     = "ssh"
+    user     = "root"
+    password = var.root_password
+    host     = self.public_ip
+  }
+  provisioner "remote-exec" {
+    inline = [
+      "puppet apply",
+      "consul join ${aws_instance.web.private_ip}",
+    ]
+  }
+}
+```
+Ref: [remote-exec](https://developer.hashicorp.com/terraform/language/resources/provisioners/remote-exec)
