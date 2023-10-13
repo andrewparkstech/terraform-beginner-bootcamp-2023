@@ -3,3 +3,4 @@ bucket_name="c627zv7s6rwney7t"
 index_html_filepath="public/index.html"
 error_html_filepath="public/error.html"
 content_version=3
+assets_path = "public/assets/"
