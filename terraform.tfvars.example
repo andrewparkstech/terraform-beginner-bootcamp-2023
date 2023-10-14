@@ -1,5 +1,7 @@
-user_uuid="e3792ba4-63e3-11ee-8c99-0242ac120002"
-bucket_name="c627zv7s6rwney7t"
+terratowns_access_token=""
+terratowns_endpoint="https://terratowns.cloud/api"
+teacherseat_user_uuid=""
+bucket_name=""
 index_html_filepath="public/index.html"
 error_html_filepath="public/error.html"
 content_version=3
