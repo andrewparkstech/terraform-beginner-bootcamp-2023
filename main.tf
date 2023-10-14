@@ -34,8 +34,8 @@ resource "terratowns_home" "home_game" {
 Lego Island is a game where you can explore different areas of the island and complete tasks, all in a Lego world!
 DESCRIPTION
   domain_name = module.home_game_hosting.domain_name
-  # town = "gamers-grotto"
-  town = "missingo"
+  town = "gamers-grotto"
+  # town = "missingo"
   content_version = var.game.content_version
 }
 
@@ -53,7 +53,7 @@ I love all kinds of music, but my favorite is classic rock. The first Pink Floyd
 was Comfortably Numb, which I listened to while programming Visual Basic 6.
 DESCRIPTION
   domain_name = module.home_music_hosting.domain_name
-  # town = "melomaniac-mansion"
-  town = "missingo"
+  town = "melomaniac-mansion"
+  # town = "missingo"
   content_version = var.music.content_version
 }
