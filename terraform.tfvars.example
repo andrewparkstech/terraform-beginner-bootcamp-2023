@@ -1,8 +1,9 @@
-terratowns_access_token=""
 terratowns_endpoint="https://terratowns.cloud/api"
-teacherseat_user_uuid=""
-bucket_name=""
-index_html_filepath="public/index.html"
-error_html_filepath="public/error.html"
-content_version=3
-assets_path = "public/assets/"
+game = {
+  public_path = "public/game"
+  content_version = 1 
+}
+music = {
+  public_path = "public/music"
+  content_version = 1 
+}
